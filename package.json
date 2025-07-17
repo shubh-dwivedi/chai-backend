@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "a backend series on chai aur code channel - youtube",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "keywords": [
     "javascript",
@@ -12,5 +15,8 @@
     "chai"
   ],
   "author": "Shubham Dwivedi",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
