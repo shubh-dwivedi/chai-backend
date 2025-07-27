@@ -15,7 +15,6 @@ const uploadOnCloudinary = async (localFilePath) => {
             resource_type: "auto"
         })
         // console.log("File is uploaded on cloudinary ", response.url)
-        // console.dir(response)
         fs.unlinkSync(localFilePath) // remove locally saved temp file after upload
         return response
     } catch (error) {
@@ -25,7 +24,22 @@ const uploadOnCloudinary = async (localFilePath) => {
     }
 }
 
-export { uploadOnCloudinary }
+const deleteFromCloudinary = async (filePath) => {
+    try {
+        if(!filePath) return null
+        const response = await cloudinary.uploader.destroy(filePath)
+        console.log(response)
+        return response
+    } catch (error) {
+        // after this serviice sends error in deletion, in the calling method, set a cron job to try deletion after some time.
+        // and also add a database entry to save deletion data/error logs and retry counts.
+        // Repeat until successfull(should stop retries at 5 counts)
+        console.log("File Uploading Error !! ", error)
+        return null
+    }
+}
+
+export { uploadOnCloudinary, deleteFromCloudinary }
 //     // Configuration
 //     cloudinary.config({ 
 //         cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
